@@ -13,6 +13,28 @@ Para armar este proyecto paso a paso en la computadora, usamos estos comandos:
    python -m venv venv
    venv\Scripts\activate
 
+
+**Regla de negocio**
+| Regla de Negocio | Descripción Operativa | Validación Técnica | Implementación en Código / Pruebas |
+| :--- | :--- | :--- | :--- |
+| **1. Tipos de Servicio** | Solo se permiten citas para servicios específicos autorizados. | Comprobar que el servicio pertenezca al conjunto permitido. | `{"asesoria", "soporte", "demostracion"}`.<br>Probado en `test_reservation_service.py` y `test_validators.py`. |
+| **2. Duración de la Cita** | El tiempo de la reserva debe ser fijo y controlado. | La duración debe ser estrictamente de 30 o 60 minutos. | `{30, 60}` minutos.<br>Valida que no se acepten otros valores (como 15 o 45 min). |
+| **3. Días Laborales** | Las reservas solo se atienden en días hábiles de la semana. | Verificar que la fecha caiga entre lunes (0) y viernes (4). | Uso de `fecha_hora.weekday() < 5`.<br>Rechaza fines de semana. |
+| **4. Horario de Atención** | Las citas deben estar dentro de la jornada laboral establecida. | La hora de inicio y fin debe estar entre las 08:00 y las 17:00. | `time(8, 0)` hasta `time(17, 0)`.<br>Valida rangos de hora permitidos. |
+| **5. Prevención de Duplicados** | No se puede ocupar un mismo horario ya reservado. | Consultar el repositorio en memoria para evitar colisiones de agenda. | Implementado mediante el repositorio (`InMemoryReservationRepository`) y validado en las pruebas de servicio. |
+| **6. Identificación Única** | Cada reserva exitosa debe tener un registro rastreable. | El cliente no puede estar vacío y se genera un código único. | Uso de `uuid` para generar códigos de confirmación (ej. `RES-XXXXXX`). |
+
+**# Matriz de Reglas de Negocio y Pruebas Unitarias - Sistema de Reservas**
+
+| N° | Regla de Negocio | Descripción Operativa | Validación Técnica | Implementación en Código y Pruebas |
+|:---|:---|:---|:---|:---|
+| **1** | **Tipos de Servicio** | Las citas solo se permiten para servicios autorizados. | Comprobar que el servicio pertenezca al conjunto permitido. | `{"asesoria", "soporte", "demostracion"}`.<br>Probado en `test_validators.py` y `test_reservation_service.py`. |
+| **2** | **Duración de la Cita** | El tiempo de la reserva debe ser fijo y controlado. | La duración debe ser estrictamente de 30 o 60 minutos. | `{30, 60}` minutos.<br>Valida que se rechacen duraciones incorrectas (ej. 15 o 45 min). |
+| **3** | **Días Laborales** | Las reservas solo se atienden en días hábiles de la semana. | Verificar que la fecha caiga entre lunes (0) y viernes (4). | Uso de `fecha_hora.weekday() < 5`.<br>Rechaza fines de semana automáticamente. |
+| **4** | **Horario de Atención** | Las citas deben estar dentro de la jornada laboral establecida. | La hora de inicio y fin debe estar entre las 08:00 y las 17:00. | `time(8, 0)` hasta `time(17, 0)`.<br>Valida rangos de hora permitidos. |
+| **5** | **Prevención de Duplicados** | No se puede ocupar un mismo horario o espacio ya reservado. | Consultar el repositorio en memoria para evitar colisiones de agenda. | Implementado con `InMemoryReservationRepository` y validado en el servicio. |
+| **6** | **Identificación Única** | Cada reserva exitosa debe tener un registro rastreable. | El cliente no puede estar vacío y se genera un código de confirmación. | Validación de cadena no vacía y uso de identificadores únicos para la reserva. |
+
 2 **Instalar la herramienta de pruebas:**
 pip install pytest
 
@@ -150,14 +172,22 @@ Otros archivos que no forman parte del código principal.
 Aquí tienes la explicación organizada en texto fluido y claro, sin tablas:
 
 **app**: Contiene el código principal de la aplicación.
+
 **tests/**: Contiene las pruebas automatizadas.
+
 **venv/**: Contiene el entorno virtual y las librerías instaladas.
+
 **__pycache__/**: Guarda archivos .pyc generados automáticamente por Python.
+
 **.pytest_cache/**: Guarda información temporal generada por pytest.
+
 **.gitignore**: Indica qué archivos o carpetas Git debe ignorar.
+
 **requirements-dev.txt**: Lista las dependencias necesarias para desarrollo y pruebas.
+
 **README.md**: Documenta y explica el proyecto.
+
 **pyproject.toml**: Contiene la configuración del proyecto y de las herramientas de Python.
 
-Conclusión
+**Conclusión**
 Hacer pruebas automáticas es como ponerle frenos seguros a una bicicleta antes de salir a rodar: nos permite atrapar los errores antes de que se conviertan en problemas grandes, asegurando que nuestro código funcione siempre a la primera y sin trampas.
