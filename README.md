@@ -15,18 +15,18 @@ Para armar este proyecto paso a paso en la computadora, usamos estos comandos:
 
 
 **Regla de negocio**
-| N° | Regla de Negocio | Descripción Operativa | Validación Técnica | Implementación en Código y Pruebas |
-|:---|:---|:---|:---|:---|
-| **1** | **Tipos de Servicio** | Citas solo para servicios autorizados. | Comprobar que el servicio pertenezca al conjunto permitido. | `{"asesoria", "soporte", "demostracion"}` en validadores y tests. |
-| **2** | **Duración de la Cita** | El tiempo debe ser controlado y fijo. | La duración debe ser estrictamente de 30 o 60 minutos. | `{30, 60}` minutos.<br>Probado en `test_validators.py`. |
-| **3** | **Días Laborales** | Solo atención en días hábiles de la semana. | Verificar que la fecha caiga entre lunes (0) y viernes (4). | Uso de `fecha_hora.weekday() < 5`.<br>Rechaza fines de semana. |
-| **4** | **Horario de Atención** | Citas dentro de la jornada laboral establecida. | La hora de inicio y fin debe estar entre las 08:00 y las 17:00. | `time(8, 0)` hasta `time(17, 0)`.<br>Valida rangos de hora. |
-| **5** | **Prevención Duplicados** | No ocupar un mismo horario ya reservado. | Consultar el repositorio en memoria para evitar colisiones. | `InMemoryReservationRepository` y prueba de conflicto de agenda. |
-| **6** | **Validación Cliente** | El nombre del cliente no puede estar vacío. | Verificar que la cadena de texto tenga contenido válido. | Validación de string no vacío con `ValueError` en caso contrario. |
-| **7** | **Código Único** | Registro rastreable para cada cita exitosa. | Generar un identificador único por cada reserva guardada. | Uso de códigos automáticos en el servicio de reservas. |
-| **8** | **Aislamiento de Datos** | Gestión de datos independiente de motores externos. | Implementar repositorio en memoria para las entidades. | Clase `InMemoryReservationRepository`. |
-| **9** | **Manejo de Excepciones** | Respuestas claras ante fallos de reglas. | Lanzar excepciones específicas (`ValueError`) ante datos inválidos. | Comprobado con `pytest.raises()` en las pruebas unitarias. |
-| **10** | **Independencia de Tests** | Pruebas limpias sin efectos secundarios. | Uso de *fixtures* para inicializar servicios y repositorios por test. | Archivos `conftest.py`, `test_validators.py` y `test_reservation_service.py`. |
+| N° | Regla de Negocio | Descripción |
+|:---|:---|:---|
+| **1** | Tipos de Servicios Permitidos | Las reservas solo se pueden registrar para tres servicios autorizados: asesoría, soporte y demostración. |
+| **2** | Duración Estricta de la Cita | El tiempo de duración de cada reserva debe ser exactamente de 30 o 60 minutos. |
+| **3** | Días Laborales Hábiles | Las citas únicamente pueden programarse de lunes a viernes (días hábiles). |
+| **4** | Horario de Atención Permitido | Las reservas deben estar comprendidas dentro de la jornada laboral, específicamente entre las 08:00 y las 17:00 horas. |
+| **5** | Prevención de Solapamiento | El sistema debe impedir que se reserve un horario que ya se encuentra ocupado en la agenda. |
+| **6** | Validación del Cliente | El nombre del cliente no puede estar vacío, venir con espacios en blanco o ser nulo. |
+| **7** | Generación de Código Único | Cada reserva confirmada de manera exitosa debe generar un identificador o código de confirmación único. |
+| **8** | Aislamiento del Repositorio | Las operaciones de guardado y consulta de reservas deben gestionarse mediante un repositorio en memoria para mantener las pruebas independientes. |
+| **9** | Manejo de Excepciones Robustas | El sistema debe lanzar excepciones claras (como `ValueError`) cuando se incumpla cualquier regla de negocio o validación. |
+| **10** | Independencia de las Pruebas | Cada prueba debe utilizar *fixtures* configurados para garantizar que los datos se limpien y no interfieran entre un test y otro. |
 
 
 # Matriz Completa de Reglas de Negocio y Pruebas Unitarias
