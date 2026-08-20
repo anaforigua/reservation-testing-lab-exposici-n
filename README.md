@@ -159,6 +159,28 @@ tests/test_reservation_service.py::test_repository_independence PASSED          
 ====================================================================== 4 passed in 0.01s ======================================================================
 
 
+**Estructura**
+reservation-testing-lab-exposici-n/
+│
+├── app/
+│   ├── __init__.py
+│   ├── exceptions.py
+│   ├── models.py
+│   ├── repositories.py
+│   ├── reservation_service.py
+│   └── validators.py
+│
+├── tests/
+│   ├── conftest.py
+│   ├── test_reservation_service.py
+│   └── test_validators.py
+│
+├── .gitignore
+├── evidencia resultados.docx
+├── pyproject.toml
+├── README.md
+└── requirements-dev.txt
+
 8 **¿Qué hay dentro de las carpetas principales? **
 
 app/ — Lógica principal de la aplicación
