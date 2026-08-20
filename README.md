@@ -70,8 +70,13 @@ tests/test_validators.py::test_validate_reservation_time_invalid[res_time2-30] P
 ================================================= 33 passed in 0.45s ==================================================
 
 6** Ejecutar código específico**
+
 python -m pytest tests/test_validators.py -v
+
 python -m pytest -k duration -v
+
+python -m pytest tests/test_reservation_service.py -v //PRUBAS UNITARIAS
+
 
 7 **Resultados de las pruebas específicas**
 tests/test_validators.py::test_validate_customer_name_valid[  Carlos P\xe9rez  -Carlos P\xe9rez] PASSED          [  3%]
@@ -113,6 +118,14 @@ tests/test_validators.py::test_validate_duration_invalid[90] PASSED             
 tests/test_validators.py::test_validate_duration_invalid[120] PASSED                                             [100%]
 
 ========================================== 6 passed, 27 deselected in 0.06s ===========================================
+
+tests/test_reservation_service.py::test_create_reservation_success PASSED                                                                                [ 25%]
+tests/test_reservation_service.py::test_duplicate_reservation_raises_error PASSED                                                                        [ 50%]
+tests/test_reservation_service.py::test_validation_failure_does_not_persist PASSED                                                                       [ 75%]
+tests/test_reservation_service.py::test_repository_independence PASSED                                                                                   [100%]
+
+====================================================================== 4 passed in 0.01s ======================================================================
+
 
 8 **¿Qué hay dentro de las carpetas principales? **
 
