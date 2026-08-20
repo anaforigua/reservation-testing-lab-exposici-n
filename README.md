@@ -109,6 +109,10 @@ python -m pytest -k duration -v
 
 python -m pytest tests/test_reservation_service.py -v //PRUBAS UNITARIAS
 
+python -m pytest tests/test_validators.py -k "valid and time" -v
+
+python -m pytest tests/test_validators.py -k "invalid and time" -v
+
 
 7 **Resultados de las pruebas específicas**
 tests/test_validators.py::test_validate_customer_name_valid[  Carlos P\xe9rez  -Carlos P\xe9rez] PASSED          [  3%]
